@@ -71,3 +71,7 @@
 | Label-Free Model Evaluation with Semi-Structured Dataset Representations  | CVPR | 提出了一种新的结构化数据表示方法，用来改进autoeval任务，以强化回归学习 |
 | Are Labels Always Necessary for Classifier Accuracy Evaluation?  | CVPR | 考虑训练集和测试集之间的分布差异及其如何影响分类器准确性来研究AutoEval。测量数据集之间的分布差异信息，再用模型去学习差异分布之间的变换与精度变换之间的关系，然后再通过测试集与训练集的分布变换预测模型在测试集的精度 |
 | K-means Clustering Based Feature Consistency Alignment for Label-free Model Evaluation  | CVPR |基于K-means聚类的特征一致性对齐表示各种数据集中的分布变化 ，构建一个动态回归模型，使该模型学习到分布与精度的关系，再用其去预测测试集的精度 |
+# 11.23
+## 任务
+* 做有关预测模型的方法调研
+* 测试我们的模型在kitti数据集上的精度
