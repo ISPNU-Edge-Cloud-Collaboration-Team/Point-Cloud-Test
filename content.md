@@ -71,7 +71,37 @@
 | Label-Free Model Evaluation with Semi-Structured Dataset Representations  | CVPR | 提出了一种新的结构化数据表示方法，用来改进autoeval任务，以强化回归学习 |
 | Are Labels Always Necessary for Classifier Accuracy Evaluation?  | CVPR | 考虑训练集和测试集之间的分布差异及其如何影响分类器准确性来研究AutoEval。测量数据集之间的分布差异信息，再用模型去学习差异分布之间的变换与精度变换之间的关系，然后再通过测试集与训练集的分布变换预测模型在测试集的精度 |
 | K-means Clustering Based Feature Consistency Alignment for Label-free Model Evaluation  | CVPR |基于K-means聚类的特征一致性对齐表示各种数据集中的分布变化 ，构建一个动态回归模型，使该模型学习到分布与精度的关系，再用其去预测测试集的精度 |
+
+
 # 11.23
 ## 任务
-* 做有关预测模型的方法调研
-* 测试我们的模型在kitti数据集上的精度
+把握任务的核心，提升模型的精度，做一个语义分割预测模型的调研，了解其它的语义分割预测模型，查找是否有更好的语义分割预测模型应有到我们的框架中去
+## 调研结果
+* S2S方法
+
+| 论文 | 来源 | 模型思路 | 精度 |
+| - | - | - | - |
+|Predicting Deeper into the Future of Semantic Segmentation|ICCV|采用X2X的模型思路，但是输入的是语义分割，然后预测语义分割，X2X模型思路是输入图片，预测图片，再进行语义分割，同时还引入了生成对抗网络| 59.4 |
+|Future semantic segmentation with convolutional lstm|cvpr|用resnet101网络结构提取四个连续语义分割帧的四个维度的特征，再分别对四个维度的特征进行convLSTM以预测未来的四个维度的特征，最后再使用1*1卷积，上采样使这几个维度的特征聚合在一起，最终生成未来的语义分割帧|60.1|
+
+
+* M2M方法(我们当前使用的模型)
+
+| 论文 | 来源 | 模型思路 | 精度 |
+| - | - | - | - |
+|Recurrent Flow-Guided Semantic Forecasting|cvpr|使用flownet网络生成光流特征，再对光流特征进行cnovLSTM生成未来的光流特征，将未来的光流特征通过warp层映射到当前的语义分割帧上，生成未来的语义分割帧|67.1|
+
+
+* F2F方法
+
+| 论文 | 来源 | 模型思路 | 精度 |
+| - | - | - | - |
+|Segmenting the Future|RAL|从RGB图片到语义分割帧，分为学生网络和教师网络。学生网络执行预测任务，教师网络用于使用未来的rgb帧对学生网络进行指导(通过损失函数)。学生网络分为三个部分，编码器(VGG19),预测模型(3d卷积网络),解码器(生成语义分割)。教师网络，生成蒸馏损失用于训练学生网络|57.1|
+|Predictive Feature Learning for Future Segmentation Prediction|ICCV|在语义分割的特征提取和预测模块之间，加入一个自动编码器，学习预测特征而不是分割特征，再将学习到的预测特征引入预测模块，生成未来帧的预测特征，然后通过解码器生成分割特征|71.1|
+
+* F2MF方法
+
+
+| 论文 | 来源 | 模型思路 | 精度 |
+| - | - | - | - |
+|Warp to the Future: Joint Forecasting of Features and Feature Motion|cvpr|引入了一个F2M模块，用于接收输入的特征并生成光流场，并将输入的特征warp到未来的特征，同时F2F模块也用于生成未来的特征，再将F2M模块和F2F模块生成的未来特征进行加权和，最终经过上采样卷积生成未来的语义分割|69.6|
