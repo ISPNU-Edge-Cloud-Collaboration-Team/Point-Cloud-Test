@@ -112,3 +112,28 @@
 将论文提供的代码的caffe结构改为pytorch结构，与师兄改的pytorch结构进行对比，查看是否是结构错误导致精度不足，并与师兄讨论代码的实现细节
 ## 结果
 我改的pytorch结构与师兄的基本一致，不同之处在于师兄的结构将前面的光流特征提取的那些层替换成为了FlownetC层，因为这两个是一致的，而且改为FlownetC的层也可以使用别人预训练好的权重参数，总体来说不是模型结构错误导致的精度不足
+
+# 12.7
+## 任务
+继续想办法提高模型精度
+## 结果
+参考了flownetC中超参数的设定，对学习率，权重衰减等参数进行了调整，模型精度达到了53.4
+之后又借鉴了其它的调参方法，对预训练好的权重的网络进行一个较低学习率的调整，对于未训练的进行较高的学习率调整，同时对优化器(optimizer)进行一个调整，将SGD改为了Adam，因为Adam会考虑过去的梯度对现在的影响，使得模型不易陷入到局部解中，最终模型的精度提高到了60.4
+* 参数设置
+
+  ```
+  final_model_wt4(0.5336):
+	configurations.py:self.momentum = 0.95,self.weight_decay = 4e-4
+	optimizer:{'params': flownet_weight_params, 'lr':0.00005, 'weight_decay': 2e-4, 'momentum':0.95},
+ 		{'params': flownet_bias_params, 'lr':0.00005, 'weight_decay': 0, 'momentum':0.95}
+  ```
+　![转化结果](/images/model_final_wt4.png)
+ * 参数设置
+
+  ```
+  model_final_wt2_Adam(0.604):#优化器为Adam
+	configurations.py:self.momentum = 0.95,self.weight_decay = 3e-4
+	optimizer:{'params': flownet_weight_params, 'lr':0.0001, 'weight_decay': 3e-4,},
+ 		{'params': flownet_bias_params, 'lr':0.0001, 'weight_decay': 0}
+  ```
+　![转化结果](/images/model_final_wt2_Adam.png)
