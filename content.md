@@ -137,3 +137,16 @@
  		{'params': flownet_bias_params, 'lr':0.0001, 'weight_decay': 0}
   ```
 　![转化结果](/images/model_final_wt2_Adam.png)
+
+# 12.13
+## 任务
+做对比实验，测量纯点云的方法的目标检测精度，测量多模态方法的目标检测精度，测量使用预测的多模态方法的精度
+## 问题
+Kitti数据集提供的是不连续的视频帧，无法使用预测模型进行未来预测(好像可以下载kitti的row data数据集，它是提供的连续的数据集，或者寻找kitti数据集的原始映射文件)
+## 结果
+纯点云的检测结果
+　![转化结果](/images/pointpillar.png)
+多模态融合的检测结果
+　![转化结果](/images/pointpillar_painted.png)
+使用预测的多模态方法的精度
+暂时还没有
