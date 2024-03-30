@@ -305,3 +305,7 @@ Kitti数据集提供的是不连续的视频帧，无法使用预测模型进行
 精度没有变化
 ![语义分割fp16精度](/images/seg_fp16_acc.png)
 ![语义分割fp32精度](/images/seg_fp32_acc.png)
+## 预测网络从fp32换为fp16精度对比
+精度下降了0.001%
+![预测网络fp16精度](/images/pred_fp16_acc.png)
+![预测网络fp32精度](/images/pred_fp32_acc.png)
