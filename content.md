@@ -389,7 +389,7 @@ Kitti数据集提供的是不连续的视频帧，无法使用预测模型进行
 
 
 当前测试结果较为正常
-![结果](/images/system1_test1.png)
+![结果](/images/system_test1.png)
 
 
 |       (R40)          | 3D Car  (IoU=0.7)                | 3D Pred.  (IoU=0.5)              | 3D Cyc.  (IoU=0.5)               |
